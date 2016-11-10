@@ -1,0 +1,25 @@
+<controller>
+	<AgentSchema name="hunt" initial="true">
+		<Navigation init="true" actuator="LazyNavigation">
+			<CoordinationOperator type="priority">
+
+				<MotorSchema type="repulsion" curve="linear" priority="5" 
+						PerceptualSchema="getNearestEdge" />
+				<MotorSchema type="repulsion" curve="linear" priority="4" 
+						PerceptualSchema="getNearestGuardDog" />
+				<MotorSchema type="attraction" curve="linear" priority="3" 
+						PerceptualSchema="getNearestSheep" />
+				<MotorSchema type="repulsion" curve="linear" priority="2" 
+						PerceptualSchema="getNearestCoyote" />		
+				<MotorSchema type="attraction" curve="linear" priority="1" 
+						PerceptualSchema="getRandomPoint" />
+
+			</CoordinationOperator>
+		</Navigation>
+
+		<Action actuator="eatSheep">
+			<ActionSchema PerceptualSchema="bumpedSheep" />
+		</Action>
+
+	</AgentSchema>
+</controller>

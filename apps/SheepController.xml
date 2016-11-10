@@ -1,0 +1,57 @@
+<controller>
+	<AgentSchema name="flock">
+		<Navigation init="true" actuator="LazyNavigation">
+				<CoordinationOperator type="priority">
+
+					<MotorSchema type="repulsion" curve="linear" priority="9" 
+							PerceptualSchema="getNearestEdge" />
+
+					<CoordinationOperator type="sum" priority="8">
+						<MotorSchema type="mimic" curve="linear" weight="3" 
+							PerceptualSchema="getNearestHerdDog" />
+						<MotorSchema type="attraction" curve="linear" weight="1" 
+							PerceptualSchema="getNearestHerdDog" />
+					</CoordinationOperator>
+
+					<MotorSchema type="repulsion" curve="linear" priority="7" 
+							PerceptualSchema="getNearestCoyote" />
+
+					<MotorSchema type="mimic" curve="linear" priority="6" 
+							PerceptualSchema="getNearestSheepCollide" />
+
+					<CoordinationOperator type="sum" priority="5">
+						<MotorSchema type="mimic" curve="linear" weight="3" 
+							PerceptualSchema="getNearestHerdDogInner" />
+						<MotorSchema type="repulsion" curve="linear" weight="1" 
+							PerceptualSchema="getNearestHerdDogInner" />
+					</CoordinationOperator>
+
+					<CoordinationOperator type="sum" priority="4">
+						<MotorSchema type="mimic" curve="linear" weight="3" 
+							PerceptualSchema="getNearestHerdDogOuter" />
+						<MotorSchema type="attraction" curve="linear" weight="1" 
+							PerceptualSchema="getNearestHerdDogOuter" />
+					</CoordinationOperator>
+
+					<CoordinationOperator type="sum" priority="3">
+						<MotorSchema type="mimic" curve="linear" weight="3" 
+							PerceptualSchema="getNearestSheepOuter" />
+						<MotorSchema type="attraction" curve="linear" weight="1" 
+							PerceptualSchema="getNearestSheepOuter" />
+					</CoordinationOperator>
+
+					<CoordinationOperator type="sum" priority="2">
+						<MotorSchema type="mimic" curve="linear" weight="3" 
+							PerceptualSchema="getNearestSheepInner" />
+						<MotorSchema type="repulsion" curve="linear" weight="1" 
+							PerceptualSchema="getNearestSheepInner" />
+					</CoordinationOperator>
+
+
+					<MotorSchema type="attraction" curve="linear" priority="1" 
+							PerceptualSchema="getRandomPoint" />
+
+				</CoordinationOperator>
+		</Navigation>
+	</AgentSchema>
+</controller>

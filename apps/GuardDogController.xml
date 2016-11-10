@@ -1,0 +1,23 @@
+<controller>
+	<AgentSchema name="guard" initial="true">
+		<Navigation init="true" actuator="LazyNavigation">
+			<CoordinationOperator type="priority">
+
+				<MotorSchema type="repulsion" curve="linear" priority="4" 
+						PerceptualSchema="getNearestEdge" />		
+				<MotorSchema type="attraction" curve="linear" priority="3" 
+						PerceptualSchema="getNearestCoyote" />		
+				<MotorSchema type="attraction" curve="linear" priority="2" 
+						PerceptualSchema="getNearestSheep" />	
+				<MotorSchema type="attraction" curve="linear" priority="1" 
+						PerceptualSchema="getRandomPoint" />
+
+			</CoordinationOperator>
+		</Navigation>
+
+		<Action actuator="chaseCoyote">
+			<ActionSchema PerceptualSchema="bumpedCoyote" />
+		</Action>
+
+	</AgentSchema>
+</controller>

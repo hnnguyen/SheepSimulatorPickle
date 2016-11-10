@@ -1,0 +1,26 @@
+<controller>
+	<AgentSchema name="herd" initial="true">
+		<Navigation init="true" actuator="LazyNavigation">
+			<CoordinationOperator type="priority">
+
+				<MotorSchema type="repulsion" curve="linear" priority="4" 
+						PerceptualSchema="getNearestEdge" />		
+
+				<CoordinationOperator type="sum" priority="3">
+					<MotorSchema type="mimic" curve="linear" weight="3" 
+						PerceptualSchema="getNearestHerdDog" />
+					<MotorSchema type="attraction" curve="linear" weight="1" 
+						PerceptualSchema="getNearestHerdDog" />
+				</CoordinationOperator>
+
+				<MotorSchema type="mimic" curve="linear" priority="2" 
+							PerceptualSchema="getNearestHerdDogCollide" />			
+				<MotorSchema type="attraction" curve="linear" priority="1" 
+						PerceptualSchema="getRandomPoint" />
+
+			</CoordinationOperator>
+		</Navigation>
+
+		
+	</AgentSchema>
+</controller>

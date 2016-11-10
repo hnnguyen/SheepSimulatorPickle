@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application name="SheepFlocking">
+
+	<Driver>Mason</Driver>
+	<GUI>Mason</GUI>
+
+	<Display>
+		<width>640</width>
+		<height>480</height>
+	</Display>
+
+	<World>
+		<width>1280</width>
+		<height>720</height>
+		<friction>0</friction>
+	</World>
+
+	<Agents>
+
+		<Agent type="Coyote">
+			<Controller file="apps/CoyoteController.xml" />
+			<Count>4</Count>
+			<Size>15</Size>
+			<MaxSpeed>8</MaxSpeed>
+			<TurningRadius>40</TurningRadius>
+
+			<Attributes>
+				<Attribute type="string" key="Color">Red</Attribute>
+			</Attributes>
+
+			<Sensors>
+				<Sensor name="bumpedSheep">
+					<Bump>Sheep</Bump>
+				</Sensor>
+
+				<Sensor name="getNearestSheep" range="200" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Sheep"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestEdge" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Edge"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getRandomPoint" active="70">
+					<Random>0.5</Random>
+				</Sensor>
+
+				<Sensor name="getNearestCoyote" range="150" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Coyote"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestGuardDog" range="20" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="GuardDog"/>
+					</Nearest>
+				</Sensor>
+
+			</Sensors>
+
+			<Actuators>
+				<Actuator name="Navigator" type="LazyNavigation" speed_threshold=".90" vector_threshhold="5" />
+				<Actuator name="eatSheep" type="Chomp"  />
+			</Actuators>
+
+		</Agent>
+
+		<Agent type="Sheep">
+			<Controller file="apps/SheepController.xml" />
+			<Count>40</Count>
+			<Size>10</Size>
+			<MaxSpeed>10</MaxSpeed>
+			<TurningRadius>30</TurningRadius>
+			
+			<Attributes>
+				<Attribute type="string" key="Color">Blue</Attribute>
+			</Attributes>
+
+			<Sensors>
+
+				<Sensor name="getNearestCoyote" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Coyote"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestSheepCollide" range="200" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Sheep"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestSheepInner" range="50" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Sheep"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestSheepOuter" range="100" left_offset="100" right_offset="100" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Sheep"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestEdge" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Edge"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getRandomPoint" active="70">
+					<Random>0.3</Random>
+				</Sensor>
+
+				<Sensor name="getNearestHerdDog" range="200" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="HerdDog"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestHerdDogInner" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="HerdDog"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestHerdDogOuter" range="200" left_offset="100" right_offset="100" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="HerdDog"/>
+					</Nearest>
+				</Sensor>
+
+			</Sensors>
+
+			<Actuators>
+				<Actuator name="Navigator" type="LazyNavigation" speed_threshold="1.10" vector_threshhold="5" />
+			</Actuators>
+
+		</Agent>
+
+		<Agent type="GuardDog">
+			<Controller file="apps/GuardDogController.xml" />
+			<Count>2</Count>
+			<Size>16</Size>
+			<MaxSpeed>8.5</MaxSpeed>
+			<TurningRadius>35</TurningRadius>
+
+			<Attributes>
+				<Attribute type="string" key="Color">Green</Attribute>
+			</Attributes>
+
+			<Sensors>
+
+				<Sensor name="bumpedCoyote">
+					<Bump>Coyote</Bump>
+				</Sensor>
+
+				<Sensor name="getNearestCoyote" range="200" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Coyote"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestEdge" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Edge"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getRandomPoint" active="70">
+					<Random>0.4</Random>
+				</Sensor>
+
+				<Sensor name="getNearestSheep" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Sheep"/>
+					</Nearest>
+				</Sensor>
+
+			</Sensors>
+
+			<Actuators>
+				<Actuator name="Navigator" type="LazyNavigation" speed_threshold="0.8" vector_threshhold="5" />
+				<Actuator name="chaseCoyote" type="Chomp"  />
+			</Actuators>
+
+		</Agent>
+
+		<Agent type="HerdDog">
+			<Controller file="apps/HerdDogController.xml" />
+			<Count>2</Count>
+			<Size>11</Size>
+			<MaxSpeed>12</MaxSpeed>
+			<TurningRadius>35</TurningRadius>
+
+			<Attributes>
+				<Attribute type="string" key="Color">Black</Attribute>
+			</Attributes>
+
+			<Sensors>
+
+				<Sensor name="getNearestHerdDog" range="100" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="HerdDog"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getNearestEdge" range="100" left_offset="180" right_offset="1280" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="Edge"/>
+					</Nearest>
+				</Sensor>
+
+				<Sensor name="getRandomPoint" active="70">
+					<Random>0.8</Random>
+				</Sensor>
+
+				<Sensor name="getNearestHerdDogCollide" range="150" left_offset="180" right_offset="180" center="0">
+					<Nearest>
+						<Filter type="String" lhs="type" op="equals" rhs="HerdDog"/>
+					</Nearest>
+				</Sensor>
+
+			</Sensors>
+
+			<Actuators>
+				<Actuator name="Navigator" type="LazyNavigation" speed_threshold="1.1" vector_threshhold="5" />
+			</Actuators>
+
+		</Agent>
+
+
+	</Agents>
+
+</Application>
